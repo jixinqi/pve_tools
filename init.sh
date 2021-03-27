@@ -36,6 +36,8 @@ EOF
 
 sed -i 's/INTERFACESv4=""/INTERFACESv4="vmbr0"/g' /etc/default/isc-dhcp-server
 
+sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+
 cat << EOF >> /etc/network/interfaces
     #post-up   iptables -t nat -A POSTROUTING -o net1 -j MASQUERADE
     #post-down iptables -t nat -D POSTROUTING -o net1 -j MASQUERADE
