@@ -41,5 +41,5 @@ cat << EOF >> /etc/network/interfaces
     #post-down iptables -t nat -D POSTROUTING -o net1 -j MASQUERADE
 EOF
 
-crontab -l | { cat; echo "* * * * *  echo \`date\` '|'  \`uptime -s\`"; } | crontab -
+crontab -l | { cat; echo "* * * * *  echo \`date\` '|'  \`uptime -s\` >> /var/log/uptime.log"; } | crontab -
 
