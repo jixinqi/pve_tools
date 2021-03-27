@@ -34,7 +34,7 @@ subnet 10.0.0.0 netmask 255.255.255.0 {
 }
 EOF
 
-sed -i 's/INTERFACESv4=""/INTERFACESv4="vmbr0 "/g' /etc/default/isc-dhcp-server
+sed -i 's/INTERFACESv4=""/INTERFACESv4="vmbr0"/g' /etc/default/isc-dhcp-server
 
 cat << EOF >> /etc/network/interfaces
     #post-up   iptables -t nat -A POSTROUTING -o net1 -j MASQUERADE
