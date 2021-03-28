@@ -45,3 +45,6 @@ EOF
 
 crontab -l | { cat; echo "* * * * *  echo \`date\` '|'  \`uptime -s\` >> /var/log/uptime.log"; } | crontab -
 
+systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+
