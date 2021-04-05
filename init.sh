@@ -3,7 +3,7 @@
 sed -i 's|^deb http://ftp.debian.org|deb https://mirrors.ustc.edu.cn|g' /etc/apt/sources.list
 sed -i 's|^deb http://security.debian.org|deb https://mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
 
-CODENAME=`cat /etc/os-release |grep CODENAME |cut -f 2 -d "="`
+CODENAME=`cat /etc/os-release | grep CODENAME | cut -f 2 -d "="`
 echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/pve $CODENAME pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
 
 cp /usr/share/perl5/PVE/APLInfo.pm /usr/share/perl5/PVE/APLInfo.pm_back
@@ -21,6 +21,14 @@ apt install \
     isc-dhcp-server \
     tmux \
     -y
+
+# https://github.com/fabianishere/pve-edge-kernel
+dpkg -i ./deb/pve-edge-kernel-5.11.11-1_5.11.11-1_amd64.deb
+
+# https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/rtl_nic/
+cp ./modules/rtl8125b-2.fw /lib/firmware/rtl_nic/
+
+update-initramfs -u
 
 cat << EOF > /etc/dhcp/dhcpd.conf
 option domain-name-servers 223.5.5.5, 223.6.6.6;
